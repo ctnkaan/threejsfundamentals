@@ -1,15 +1,15 @@
-Title: Three.js Materyelleri
-Description: Three.js' de Materyaller
-TOC: Materyaller
+Title: Three.js Malzemeleri
+Description: Three.js' de malzemeler
+TOC: Malzemeler
 
 Bu three.js ile alakalı makale serisinin bir parçasıdır. İlk makaleye buradan ulaşabilirsiniz [three.js fundamentals](threejs-fundamentals.html).
 Eğer okumadıysanız ve three.js'e yeniyseniz buradan başlamayı düşünebilirsiniz.
 
-Three.js birden çok materyal tipine erişim sağlar.
-Bu materyaller objelerin sahnede nasıl göründüğünü tanımlar.
-Hangi materyali kullandığınız, ne yapmayı amaçladığınıza göre değişiklik gösterir.
+Three.js birden çok malzeme tipine erişim sağlar.
+Bu malzemeler objelerin sahnede nasıl göründüğünü tanımlar.
+Hangi malzemei kullandığınız, ne yapmayı amaçladığınıza göre değişiklik gösterir.
 
-Bir materyalin özelliklerini ayarlamak için 2 yöntem vardır. Birincisi daha önceden de gördüğümüz gibi oluşturulma anında.
+Bir malzemein özelliklerini ayarlamak için 2 yöntem vardır. Birincisi daha önceden de gördüğümüz gibi oluşturulma anında.
 
 ```js
 const material = new THREE.MeshPhongMaterial({
@@ -48,7 +48,7 @@ const m4 = new THREE.MeshBasicMaterial({color: 'rgb(255,0,0)'});   // kırmızı
 const m5 = new THREE.MeshBasicMaterial({color: 'hsl(0,100%,50%)'); // kırmızı
 ```
 
-Şimdi three.js'in materyal setleri üzerinden geçelim.
+Şimdi three.js'in malzeme setleri üzerinden geçelim.
 
 `MeshBasicMaterial` ışıklardan etkilenmez.
 `MeshLambertMaterial` ışığı sadece köşelerde hesaplar. `MeshPhongMaterial` ise ışığı her pixelde hesaplar. `MeshPhongMaterial` da aynasal vurgulamaları destekler.
@@ -78,9 +78,9 @@ const m5 = new THREE.MeshBasicMaterial({color: 'hsl(0,100%,50%)'); // kırmızı
     <div data-diagram="MeshPhongMaterialLowPoly" ></div>
   </div>
 </div>
-<div class="threejs_center code">low-poly models with same materials</div>
+<div class="threejs_center code">aynı malzemelere sahip düşük poligon modeller</div>
 
-The `shininess` setting of the `MeshPhongMaterial` determines the *shininess* of the specular highlight. It defaults to 30.
+`MeshPhongMaterial` da ki `shininess` ayarı belirli bir aynasal vurgunun *parlaklığını* ayarlar. Varsayılan değeri 30 dur.
 
 <div class="spread">
   <div>
@@ -97,9 +97,8 @@ The `shininess` setting of the `MeshPhongMaterial` determines the *shininess* of
   </div>
 </div>
 
-Note that setting the `emissive` property to a color on either a
-`MeshLambertMaterial` or a `MeshPhongMaterial` and setting the `color` to black
-(and `shininess` to 0 for phong) ends up looking just like the `MeshBasicMaterial`.
+Unutmayın ki `emissive` özelliğini rengini `MeshLambertMaterial` ya da `MeshPhongMaterial` dab ayarlayarak ve `color`'ı siyaha ayarlamak (phong için `shininess` 0)
+`MeshBasicMaterial` gibi gözükür.
 
 <div class="spread">
   <div>
@@ -128,26 +127,23 @@ Note that setting the `emissive` property to a color on either a
   </div>
 </div>
 
-Why have all 3 when `MeshPhongMaterial` can do the same things as `MeshBasicMaterial`
-and `MeshLambertMaterial`? The reason is the more sophisticated material
-takes more GPU power to draw. On a slower GPU like say a mobile phone
-you might want to reduce the GPU power needed to draw your scene by
-using one of the less complex materials. It also follows that if you
-don't need the extra features then use the simplest material. If you don't
-need the lighting and the specular highlight then use the `MeshBasicMaterial`.
+Şimdi aklınızda bir soru kalmış olabilir. `MeshPhongMaterial`, `MeshBasicMaterial` ve `MeshLambertMaterial` ile aynı şeyleri yapabildiği halde
+neden bu üçüne de ihtiyacımız var ? Bunun nedeni, daha sofistike malzemeler
+çizmek için daha fazla GPU gücü alır. Cep telefonu gibi daha yavaş bir GPU'da
+sahnenizi çizmek için gereken GPU gücünü daha az karmaşık malzemelerden birini kullanarak azaltmak isteyebilirsiniz.
+Bununla birlikte eğer ekstra özelliklere ihtiyacınız yoksa en basit malzemeyi kullanabilirsiniz.
+Eğer ışıklandırmaya ya da aynasal vurguya ihtiyacınız yoksa `MeshBasicMaterial` kullanabilirsiniz.
 
-The `MeshToonMaterial` is similar to the `MeshPhongMaterial`
-with one big difference. Rather than shading smoothly it uses a gradient map
-(an X by 1 texture) to decide how to shade. The default uses a gradient map
-that is 70% brightness for the first 70% and 100% after but you can supply your
-own gradient map. This ends up giving a 2 tone look that looks like a cartoon.
+`MeshToonMaterial` bir büyük fark dışında `MeshPhongMaterial` a benzer. Bu farkı da `MeshToonMaterial`
+düzgün bir şekilde gölgelendirmek yerine, nasıl gölgeleneceğine karar vermek için bir gradyan haritası kullanır
+(X'e 1 doku). Varsayılan, bir gradyan haritası değerleri ilk %70 i için %70 parlaklık ve sonrası için %100 dür.
+Ancak kendi gradyan haritanızı ayarlayabilirsiniz. Bu da çizgi film gibi görünen 2 adet ton oluşturuyor.
 
 <div class="spread">
   <div data-diagram="MeshToonMaterial"></div>
 </div>
 
-Next up there are 2 *physically based rendering* materials. Physically Based
-Rendering is often abbreviated PBR.
+Sırada 2 *fiziksel tabanlı oluşturma* malzemesi var. 
 
 The materials above use simple math to make materials that look 3D but they
 aren't what actually happens in real world. The 2 PBR materials use much more
